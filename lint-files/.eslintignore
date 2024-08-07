@@ -1,0 +1,8 @@
+/node_modules
+/.pnp
+.pnp.js
+/build
+/src/assets/css
+/.idea
+/lint-files
+/public/workbox*

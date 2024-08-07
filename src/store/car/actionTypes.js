@@ -1,0 +1,11 @@
+const this_path = 'AUCTIONS_DETAILS_'
+
+export const CHANGE_PREVIEWED_IMAGE = `${this_path}CHANGE_PREVIEWED_IMAGE`
+export const CHANGE_PREVIEWED_ALERT = `${this_path}CHANGE_PREVIEWED_ALERT`
+export const CHANGE_PREVIEWED_DETAILS = `${this_path}CHANGE_PREVIEWED_DETAILS`
+export const CHANGE_INSPECTION_COMMENTS = `${this_path}CHANGE_INSPECTION_COMMENTS`
+export const CHANGE_CAR_INFO = `${this_path}CHANGE_CAR_INFO`
+export const CHANGE_CAR_DETAILS = `${this_path}CHANGE_CAR_DETAILS`
+export const CHANGE_LOADING = `${this_path}CHANGE_LOADING`
+export const CHANGE_INDEX_ACTIVE_IMAGE = `${this_path}CHANGE_INDEX_ACTIVE_IMAGE`
+export const RESET_THIS_STORE = `${this_path}RESET_THIS_STORE`

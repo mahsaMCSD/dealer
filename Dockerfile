@@ -1,0 +1,20 @@
+FROM node:14 AS build
+
+# Bundle APP files
+COPY package.json ./
+
+# Install app dependencies
+ENV NPM_CONFIG_LOGLEVEL warn
+
+COPY . ./
+
+RUN npm i
+
+RUN npm run build:production
+
+FROM nginx:alpine
+WORKDIR /usr/share/nginx/html
+COPY --from=build ./build /usr/share/nginx/html/app
+RUN rm /etc/nginx/conf.d/default.conf
+COPY default-nginx.conf /etc/nginx/conf.d
+EXPOSE 80

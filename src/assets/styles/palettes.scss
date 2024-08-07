@@ -1,0 +1,149 @@
+$palettes: (
+        orange-crayola: (
+                dark: #ED4700,
+                50: #FFF8F5,
+                100: #FFF2EC,
+                200: #FFE4D9,
+                400: #FFC9B2,
+                600: #FFAF8C,
+                800: #FF9465,
+                '': #FF793F
+        ),
+        yellow-orange: (
+                dark: #E88700,
+                50: #FFFAF3,
+                100: #FFF5E7,
+                200: #FFEBCE,
+                400: #FFD69D,
+                600: #FFC26C,
+                800: #FFAD3B,
+                '': #FF990A
+        ),
+        yellow: (
+                dark: #FFAF1A,
+                50: #FFFCF6,
+                100: #FFF8EC,
+                200: #FFF2D9,
+                400: #FFE4B3,
+                600: #FFD78E,
+                800: #FFC968,
+                '': #FFBC42
+        ),
+        green: (
+                dark: #62B237,
+                50: #F8FCF6,
+                100: #F1F9EC,
+                200: #E3F3DA,
+                400: #C6E8B4,
+                600: #AADC8F,
+                800: #8DD169,
+                '': #71C544
+        ),
+        red: (
+                dark: #ED1524,
+                50: #FEF5F6,
+                100: #FDEBED,
+                200: #FCD8DA,
+                400: #F9B0B5,
+                600: #F68991,
+                800: #F3616C,
+                '': #F03A47
+        ),
+        blue: (
+                dark: #0786E1,
+                50: #F3FAFF,
+                100: #E7F5FE,
+                200: #CFEAFD,
+                400: #9FD6FC,
+                600: #70C1FA,
+                800: #40ADF9,
+                '': #1098F7
+        ),
+        black: (
+                dark: #000000,
+                50: #F9F9FA,
+                100: #E8E8E8,
+                200: #DBDDE0,
+                400: #CACCCF,
+                600: #A0A4A8,
+                800: #52575C,
+                '': #25282B
+        ),
+        charcoal: (
+                dark: #31343E,
+                50: #F6F6F6,
+                100: #ECECEE,
+                200: #D9DADD,
+                400: #B3B5BA,
+                600: #8E9098,
+                800: #686B75,
+                '': #424653
+        )
+);
+
+:root {
+  @each $colorname, $palette in $palettes {
+    @each $key, $value in $palette {
+      $keyname: "--" + $colorname;
+      @if ($key != '') {
+        $keyname: "--" + $colorname + "-" + $key;
+      }
+      #{$keyname}: #{$value};
+    }
+  }
+}
+
+@each $colorname, $palette in $palettes {
+  @each $key, $value in $palette {
+    $keyname: "-" + $colorname;
+    @if ($key != '') {
+      $keyname: "-" + $colorname + "-" + $key;
+    }
+    .text#{$keyname} {
+      color: #{$value} !important;
+    }
+    .bg#{$keyname} {
+      background: #{$value};
+    }
+    .border#{$keyname} {
+      border-color: #{$value} !important;
+    }
+  }
+}
+
+@function getColor($color,$tone: '') {
+
+  @warn map-get($palettes, $color);
+
+  @if map-has-key($palettes, $color) {
+    $color: map-get($palettes, $color);
+
+    @if map-has-key($color, $tone) {
+      $tone: map-get($color, $tone);
+      @return $tone;
+    }
+
+    @warn "unknown tone `#{$tone}` in color";
+    @return null;
+  }
+
+  @warn "unknown color `#{$color}` in palette";
+  @return null;
+
+}
+
+@function toRGB ($color) {
+  @return (red($color),green($color),blue($color));
+}
+
+:export {
+  @each $colorname, $palette in $palettes {
+    @each $key, $value in $palette {
+      $keyname: $colorname;
+      @if ($key != '') {
+        $keyname: $colorname + "-" + $key;
+      }
+      #{$keyname}: toRGB($value)
+    }
+  }
+}

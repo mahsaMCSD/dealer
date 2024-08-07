@@ -1,0 +1,52 @@
+@mixin generate-border-radius($from, $to) {
+  @for $i from $from through $to {
+    .radius-#{$i * 4} {
+      border-radius: #{$i * 4}px !important;
+    }
+  }
+}
+
+@include generate-border-radius(0, 8);
+
+
+$grid-breakpoints: (
+        xs: 0,
+        sm: 576px,
+        md: 768px,
+        lg: 992px,
+        xl: 1200px
+);
+
+$font-sizes: 8, 10, 12, 14, 16, 18, 20, 24, 28, 32;
+@each $key, $num in $grid-breakpoints {
+  @if ($num != 0) {
+    @media (min-width: $num) {
+      @each $size in $font-sizes {
+        .text-#{$key}-#{$size} {
+          font-size: #{$size}px !important;
+        }
+      }
+    }
+  } @else {
+    @each $size in $font-sizes {
+      .text-#{$size} {
+        font-size: #{$size}px !important;
+      }
+    }
+  }
+}
+
+
+$percent-distance: 0, 25, 50, 100;
+$directions: right, left, top, bottom;
+@each $dir in $directions {
+  @each $percent in $percent-distance {
+    #{'.'+$dir}-#{$percent} {
+      @if ($percent == 0) {
+        #{$dir}: #{$percent} !important;
+      } @else {
+        #{ $dir}: #{$percent+'%'} !important;
+      }
+    }
+  }
+}

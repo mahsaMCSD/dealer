@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="50" height="50" viewBox="0 0 50 50">
+    <defs>
+        <path id="b" d="M34.142 5.858A19.87 19.87 0 0 0 20 0 19.87 19.87 0 0 0 5.858 5.858 19.87 19.87 0 0 0 0 20a19.87 19.87 0 0 0 5.858 14.142A19.87 19.87 0 0 0 20 40a19.87 19.87 0 0 0 14.142-5.858A19.87 19.87 0 0 0 40 20a19.87 19.87 0 0 0-5.858-14.142zm3.473 15.331a17.584 17.584 0 0 1-4.344 10.443l-1.529-1.53-1.657 1.657 1.528 1.529a17.581 17.581 0 0 1-10.441 4.328v-2.165h-2.344v2.165a17.583 17.583 0 0 1-10.441-4.328l1.528-1.529-1.657-1.657-1.53 1.53a17.585 17.585 0 0 1-4.343-10.443h2.18v-2.343H2.384a17.581 17.581 0 0 1 4.329-10.46l1.546 1.547 1.657-1.658-1.547-1.547a17.583 17.583 0 0 1 10.46-4.344v2.2h2.344v-2.2a17.581 17.581 0 0 1 10.46 4.345l-1.547 1.546 1.657 1.658 1.546-1.546a17.581 17.581 0 0 1 4.33 10.459h-2.184v2.343h2.181z"/>
+        <filter id="a" width="147.5%" height="147.5%" x="-23.8%" y="-13.8%" filterUnits="objectBoundingBox">
+            <feOffset dy="4" in="SourceAlpha" result="shadowOffsetOuter1"/>
+            <feGaussianBlur in="shadowOffsetOuter1" result="shadowBlurOuter1" stdDeviation="2.5"/>
+            <feColorMatrix in="shadowBlurOuter1" values="0 0 0 0 0.945098039 0 0 0 0 0.364705882 0 0 0 0 0.164705882 0 0 0 0.471809441 0"/>
+        </filter>
+        <path id="d" d="M20 6.719C12.677 6.719 6.719 12.677 6.719 20S12.677 33.281 20 33.281 33.281 27.323 33.281 20 27.323 6.719 20 6.719zM30.938 20c0 .293-.012.583-.035.87l-5.646-.052-1.85 3.202 2.994 4.843c-.534.387-1.105.727-1.706 1.014l-2.776-4.915-3.698-.002-2.7 5.018A10.938 10.938 0 0 1 13.793 29l2.868-4.859-1.846-3.204-5.697.169a10.967 10.967 0 0 1-.02-1.985l5.645.056 1.854-3.2-2.992-4.846c.53-.383 1.097-.72 1.693-1.006l2.78 4.913h3.698l2.696-5.02c.607.273 1.185.6 1.728.976l-2.864 4.86 1.848 3.204 5.697-.174c.037.367.056.739.056 1.115zm-4.424-3.327l-.465-.805 1.954-3.315a10.948 10.948 0 0 1 2.378 4.002l-3.867.118zm-4.309-7.387l-1.83 3.41h-.93l-1.9-3.356a10.935 10.935 0 0 1 4.66-.054zm-10.368 3.443l2.029 3.287-.466.805-3.854-.038a10.935 10.935 0 0 1 2.29-4.054zm-2.22 10.708l3.867-.115.464.806-1.956 3.313a10.948 10.948 0 0 1-2.376-4.004zm8.17 7.275l1.833-3.408.93.001 1.896 3.357a10.937 10.937 0 0 1-4.66.05zm10.382-3.447l-2.032-3.286.465-.805 3.855.036a10.937 10.937 0 0 1-2.288 4.055z"/>
+        <filter id="c" width="171.5%" height="171.5%" x="-35.8%" y="-20.7%" filterUnits="objectBoundingBox">
+            <feOffset dy="4" in="SourceAlpha" result="shadowOffsetOuter1"/>
+            <feGaussianBlur in="shadowOffsetOuter1" result="shadowBlurOuter1" stdDeviation="2.5"/>
+            <feColorMatrix in="shadowBlurOuter1" values="0 0 0 0 0.945098039 0 0 0 0 0.364705882 0 0 0 0 0.164705882 0 0 0 0.471809441 0"/>
+        </filter>
+        <path id="f" d="M20 16.328A3.676 3.676 0 0 0 16.328 20 3.676 3.676 0 0 0 20 23.672 3.676 3.676 0 0 0 23.672 20 3.676 3.676 0 0 0 20 16.328zm0 5A1.33 1.33 0 0 1 18.672 20 1.33 1.33 0 0 1 20 18.672 1.33 1.33 0 0 1 21.328 20 1.33 1.33 0 0 1 20 21.328z"/>
+        <filter id="e" width="358.7%" height="358.7%" x="-129.4%" y="-74.9%" filterUnits="objectBoundingBox">
+            <feOffset dy="4" in="SourceAlpha" result="shadowOffsetOuter1"/>
+            <feGaussianBlur in="shadowOffsetOuter1" result="shadowBlurOuter1" stdDeviation="2.5"/>
+            <feColorMatrix in="shadowBlurOuter1" values="0 0 0 0 0.945098039 0 0 0 0 0.364705882 0 0 0 0 0.164705882 0 0 0 0.471809441 0"/>
+        </filter>
+    </defs>
+    <g fill="none" fillRule="nonzero">
+        <g transform="translate(5 1)">
+            <use fill="#000" filter="url(#a)" xlink:href="#b"/>
+            <use fill="#F15D2A" xlink:href="#b"/>
+        </g>
+        <g transform="translate(5 1)">
+            <use fill="#000" filter="url(#c)" xlink:href="#d"/>
+            <use fill="#F15D2A" xlink:href="#d"/>
+        </g>
+        <g transform="translate(5 1)">
+            <use fill="#000" filter="url(#e)" xlink:href="#f"/>
+            <use fill="#F15D2A" xlink:href="#f"/>
+        </g>
+    </g>
+</svg>

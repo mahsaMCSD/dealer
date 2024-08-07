@@ -1,0 +1,338 @@
+
+# variables:
+#   NPM_CACHE_DIR: "$CI_PROJECT_DIR/.cache/npm-pwa"
+# cache:
+#   paths:
+#     - .cache/npm-pwa
+
+stages:
+  - backup-image
+  - build
+  - deploy
+
+####################################################################################################
+build_release1Technical:
+  stage: build
+  image: docker:stable
+  script:
+    - docker login $CI_REGISTRY_HAM -u $CI_REGISTRY_USER_HAM -p $CI_REGISTRY_PASSWORD_HAM
+    - docker build -t $CI_REGISTRY_HAM/khodro45/dealer-pwa:$CI_COMMIT_SHORT_SHA -f Dockerfile-technical .
+    - docker push $CI_REGISTRY_HAM/khodro45/dealer-pwa:$CI_COMMIT_SHORT_SHA
+  only:
+    - /^release1Technical-v[0-9]+\.[0-9]+$/
+  tags:
+    - dockerrunner4
+
+deploy_release1Technical:
+  stage: deploy
+  image: docker:stable
+  script:
+    - docker login $CI_REGISTRY_HAM -u $CI_REGISTRY_USER_HAM -p $CI_REGISTRY_PASSWORD_HAM
+    - docker pull $CI_REGISTRY_HAM/khodro45/dealer-pwa:$CI_COMMIT_SHORT_SHA
+    - docker tag $CI_REGISTRY_HAM/khodro45/dealer-pwa:$CI_COMMIT_SHORT_SHA $CI_REGISTRY_HAM/khodro45/dealer-pwa:release1Technical
+    - docker push $CI_REGISTRY_HAM/khodro45/dealer-pwa:release1Technical
+  tags:
+    - dockerrunner2
+  only:
+    - /^release1Technical-v[0-9]+\.[0-9]+$/
+
+####################################################################################################
+build_release2Technical:
+  stage: build
+  image: docker:stable
+  script:
+    - docker login $CI_REGISTRY_HAM -u $CI_REGISTRY_USER_HAM -p $CI_REGISTRY_PASSWORD_HAM
+    - docker build -t $CI_REGISTRY_HAM/khodro45/dealer-pwa:$CI_COMMIT_SHORT_SHA -f Dockerfile-technical .
+    - docker push $CI_REGISTRY_HAM/khodro45/dealer-pwa:$CI_COMMIT_SHORT_SHA
+  only:
+    - /^release2Technical-v[0-9]+\.[0-9]+$/
+  tags:
+    - dockerrunner4
+
+deploy_release2Technical:
+  stage: deploy
+  image: docker:stable
+  script:
+    - docker login $CI_REGISTRY_HAM -u $CI_REGISTRY_USER_HAM -p $CI_REGISTRY_PASSWORD_HAM
+    - docker pull $CI_REGISTRY_HAM/khodro45/dealer-pwa:$CI_COMMIT_SHORT_SHA
+    - docker tag $CI_REGISTRY_HAM/khodro45/dealer-pwa:$CI_COMMIT_SHORT_SHA $CI_REGISTRY_HAM/khodro45/dealer-pwa:release2Technical
+    - docker push $CI_REGISTRY_HAM/khodro45/dealer-pwa:release2Technical
+  tags:
+    - dockerrunner2
+  only:
+    - /^release2Technical-v[0-9]+\.[0-9]+$/
+
+###################################################################################################################
+build_release1Staging:
+  stage: build
+  image: docker:stable
+  script:
+    - docker login $CI_REGISTRY_HAM -u $CI_REGISTRY_USER_HAM -p $CI_REGISTRY_PASSWORD_HAM
+    - docker build -t $CI_REGISTRY_HAM/khodro45/dealer-pwa:$CI_COMMIT_SHORT_SHA -f Dockerfile-staging .
+    - docker push $CI_REGISTRY_HAM/khodro45/dealer-pwa:$CI_COMMIT_SHORT_SHA
+  only:
+    - /^release1Staging-v[0-9]+\.[0-9]+$/
+  tags:
+    - dockerrunner4
+
+deploy_release1Staging:
+  stage: deploy
+  image: docker:stable
+  script:
+    - docker login $CI_REGISTRY_HAM -u $CI_REGISTRY_USER_HAM -p $CI_REGISTRY_PASSWORD_HAM
+    - docker pull $CI_REGISTRY_HAM/khodro45/dealer-pwa:$CI_COMMIT_SHORT_SHA
+    - docker tag $CI_REGISTRY_HAM/khodro45/dealer-pwa:$CI_COMMIT_SHORT_SHA $CI_REGISTRY_HAM/khodro45/dealer-pwa:release1Staging
+    - docker push $CI_REGISTRY_HAM/khodro45/dealer-pwa:release1Staging
+
+  tags:
+    - dockerrunner2
+  only:
+    - /^release1Staging-v[0-9]+\.[0-9]+$/
+
+###################################################################################################################
+build_release2Staging:
+  stage: build
+  image: docker:stable
+  script:
+    - docker login $CI_REGISTRY_HAM -u $CI_REGISTRY_USER_HAM -p $CI_REGISTRY_PASSWORD_HAM
+    - docker build -t $CI_REGISTRY_HAM/khodro45/dealer-pwa:$CI_COMMIT_SHORT_SHA -f Dockerfile-staging .
+    - docker push $CI_REGISTRY_HAM/khodro45/dealer-pwa:$CI_COMMIT_SHORT_SHA
+  only:
+    - /^release2Staging-v[0-9]+\.[0-9]+$/
+  tags:
+    - dockerrunner4
+
+deploy_release2Staging:
+  stage: deploy
+  image: docker:stable
+  script:
+    - docker login $CI_REGISTRY_HAM -u $CI_REGISTRY_USER_HAM -p $CI_REGISTRY_PASSWORD_HAM
+    - docker pull $CI_REGISTRY_HAM/khodro45/dealer-pwa:$CI_COMMIT_SHORT_SHA
+    - docker tag $CI_REGISTRY_HAM/khodro45/dealer-pwa:$CI_COMMIT_SHORT_SHA $CI_REGISTRY_HAM/khodro45/dealer-pwa:release2Staging
+    - docker push $CI_REGISTRY_HAM/khodro45/dealer-pwa:release2Staging
+
+  tags:
+    - dockerrunner2
+  only:
+    - /^release2Staging-v[0-9]+\.[0-9]+$/
+
+##########################################################################################################
+build_minor:
+  image: docker:stable
+  stage: build
+  only:
+    - minor
+  script:
+    - docker login $CI_REGISTRY_HAM -u $CI_REGISTRY_USER_HAM -p $CI_REGISTRY_PASSWORD_HAM
+    - docker build -t $CI_REGISTRY_HAM/khodro45/dealer-pwa:$CI_COMMIT_SHORT_SHA -f Dockerfile-minor .
+    - docker push $CI_REGISTRY_HAM/khodro45/dealer-pwa:$CI_COMMIT_SHORT_SHA
+  tags:
+    - dockerrunner4
+
+deploy_minor:
+  image: docker:stable
+  stage: deploy
+  only:
+    - minor
+  tags:
+    - dockerrunner4
+  script:
+    - docker login $CI_REGISTRY_HAM -u $CI_REGISTRY_USER_HAM -p $CI_REGISTRY_PASSWORD_HAM
+    - docker pull $CI_REGISTRY_HAM/khodro45/dealer-pwa:$CI_COMMIT_SHORT_SHA
+    - docker tag $CI_REGISTRY_HAM/khodro45/dealer-pwa:$CI_COMMIT_SHORT_SHA $CI_REGISTRY_HAM/khodro45/dealer-pwa:minor
+    - docker push $CI_REGISTRY_HAM/khodro45/dealer-pwa:minor
+
+####################################################################################################
+build_staging:
+  image: docker:stable
+  stage: build
+  only:
+    - staging
+  tags:
+    - dockerrunner4
+  script:
+    - docker login $CI_REGISTRY_HAM -u $CI_REGISTRY_USER_HAM -p $CI_REGISTRY_PASSWORD_HAM
+    - docker build -t $CI_REGISTRY_HAM/khodro45/dealer-pwa:$CI_COMMIT_SHORT_SHA -f Dockerfile-staging .
+    - docker push $CI_REGISTRY_HAM/khodro45/dealer-pwa:$CI_COMMIT_SHORT_SHA
+
+deploy_staging:
+  stage: deploy
+  image: docker:stable
+  script:
+    - docker login $CI_REGISTRY_HAM -u $CI_REGISTRY_USER_HAM -p $CI_REGISTRY_PASSWORD_HAM
+    - docker pull $CI_REGISTRY_HAM/khodro45/dealer-pwa:$CI_COMMIT_SHORT_SHA
+    - docker tag $CI_REGISTRY_HAM/khodro45/dealer-pwa:$CI_COMMIT_SHORT_SHA $CI_REGISTRY_HAM/khodro45/dealer-pwa:staging
+    - docker push $CI_REGISTRY_HAM/khodro45/dealer-pwa:staging
+
+  tags:
+    - dockerrunner2
+  only:
+    - staging
+
+####################################################################################################
+build_technical:
+  image: docker:stable
+  stage: build
+  only:
+    - development
+  tags:
+    - dockerrunner4
+  script:
+    - docker login $CI_REGISTRY_HAM -u $CI_REGISTRY_USER_HAM -p $CI_REGISTRY_PASSWORD_HAM
+    - docker build -t $CI_REGISTRY_HAM/khodro45/dealer-pwa:$CI_COMMIT_SHORT_SHA -f Dockerfile-technical .
+    - docker push $CI_REGISTRY_HAM/khodro45/dealer-pwa:$CI_COMMIT_SHORT_SHA
+
+deploy-technical:
+  stage: deploy
+  image: docker:stable
+  script:
+    - docker login $CI_REGISTRY_HAM -u $CI_REGISTRY_USER_HAM -p $CI_REGISTRY_PASSWORD_HAM
+    - docker pull $CI_REGISTRY_HAM/khodro45/dealer-pwa:$CI_COMMIT_SHORT_SHA
+    - docker tag $CI_REGISTRY_HAM/khodro45/dealer-pwa:$CI_COMMIT_SHORT_SHA $CI_REGISTRY_HAM/khodro45/dealer-pwa:technical
+    - docker push $CI_REGISTRY_HAM/khodro45/dealer-pwa:technical
+
+  tags:
+    - dockerrunner2
+  only:
+    - development
+
+####################################################################################################
+backup_image_prod:
+  stage: backup-image
+  image: docker:stable
+  only:
+    - master
+  script:
+    - docker login $CI_REGISTRY_HAM -u $CI_REGISTRY_USER_HAM -p $CI_REGISTRY_PASSWORD_HAM
+    - docker pull $CI_REGISTRY_HAM/khodro45/dealer-pwa:latest
+    - docker tag $CI_REGISTRY_HAM/khodro45/dealer-pwa:latest $CI_REGISTRY_HAM/khodro45/dealer-pwa:latest-old
+    - docker push $CI_REGISTRY_HAM/khodro45/dealer-pwa:latest-old
+  tags:
+    - dockerrunner4
+
+build_prod:
+  image: docker:stable
+  stage: build
+  only:
+    - master
+  script:
+    - docker login $CI_REGISTRY_HAM -u $CI_REGISTRY_USER_HAM -p $CI_REGISTRY_PASSWORD_HAM
+    - docker build -t $CI_REGISTRY_HAM/khodro45/dealer-pwa:$CI_COMMIT_SHORT_SHA -f Dockerfile .
+    - docker push $CI_REGISTRY_HAM/khodro45/dealer-pwa:$CI_COMMIT_SHORT_SHA
+
+deploy_prod:
+  image: docker:stable
+  stage: deploy
+  only:
+    - master
+
+  when: manual
+  script:
+    - docker login $CI_REGISTRY_HAM -u $CI_REGISTRY_USER_HAM -p $CI_REGISTRY_PASSWORD_HAM
+    - docker pull $CI_REGISTRY_HAM/khodro45/dealer-pwa:$CI_COMMIT_SHORT_SHA
+    - docker tag $CI_REGISTRY_HAM/khodro45/dealer-pwa:$CI_COMMIT_SHORT_SHA $CI_REGISTRY_HAM/khodro45/dealer-pwa:latest
+    - docker push $CI_REGISTRY_HAM/khodro45/dealer-pwa:latest
+
+##########################################################################################################
+build_impalaTechnical:
+  image: docker:stable
+  stage: build
+  only:
+    - /^impalaTechnical-v[0-9]+\.[0-9]+$/
+  script:
+    - docker login $CI_REGISTRY_HAM -u $CI_REGISTRY_USER_HAM -p $CI_REGISTRY_PASSWORD_HAM
+    - docker build -t $CI_REGISTRY_HAM/khodro45/dealer-pwa:$CI_COMMIT_SHORT_SHA -f Dockerfile-impalaTechnical .
+    - docker push $CI_REGISTRY_HAM/khodro45/dealer-pwa:$CI_COMMIT_SHORT_SHA
+  tags:
+    - dockerrunner4
+
+deploy_impalaTechnical:
+  image: docker:stable
+  stage: deploy
+  only:
+    - /^impalaTechnical-v[0-9]+\.[0-9]+$/
+  tags:
+    - dockerrunner4
+  script:
+    - docker login $CI_REGISTRY_HAM -u $CI_REGISTRY_USER_HAM -p $CI_REGISTRY_PASSWORD_HAM
+    - docker pull $CI_REGISTRY_HAM/khodro45/dealer-pwa:$CI_COMMIT_SHORT_SHA
+    - docker tag $CI_REGISTRY_HAM/khodro45/dealer-pwa:$CI_COMMIT_SHORT_SHA $CI_REGISTRY_HAM/khodro45/dealer-pwa:impalaTechnical
+    - docker push $CI_REGISTRY_HAM/khodro45/dealer-pwa:impalaTechnical
+
+##########################################################################################################
+build_gocTechnical:
+  image: docker:stable
+  stage: build
+  only:
+    - /^gocTechnical-v[0-9]+\.[0-9]+$/
+  script:
+    - docker login $CI_REGISTRY_HAM -u $CI_REGISTRY_USER_HAM -p $CI_REGISTRY_PASSWORD_HAM
+    - docker build -t $CI_REGISTRY_HAM/khodro45/dealer-pwa:$CI_COMMIT_SHORT_SHA -f Dockerfile-gocTechnical .
+    - docker push $CI_REGISTRY_HAM/khodro45/dealer-pwa:$CI_COMMIT_SHORT_SHA
+  tags:
+    - dockerrunner4
+
+deploy_gocTechnical:
+  image: docker:stable
+  stage: deploy
+  only:
+    - /^gocTechnical-v[0-9]+\.[0-9]+$/
+  tags:
+    - dockerrunner4
+  script:
+    - docker login $CI_REGISTRY_HAM -u $CI_REGISTRY_USER_HAM -p $CI_REGISTRY_PASSWORD_HAM
+    - docker pull $CI_REGISTRY_HAM/khodro45/dealer-pwa:$CI_COMMIT_SHORT_SHA
+    - docker tag $CI_REGISTRY_HAM/khodro45/dealer-pwa:$CI_COMMIT_SHORT_SHA $CI_REGISTRY_HAM/khodro45/dealer-pwa:gocTechnical
+    - docker push $CI_REGISTRY_HAM/khodro45/dealer-pwa:gocTechnical
+
+##########################################################################################################
+build_fordTechnical:
+  image: docker:stable
+  stage: build
+  only:
+    - /^fordTechnical-v[0-9]+\.[0-9]+$/
+  script:
+    - docker login $CI_REGISTRY_HAM -u $CI_REGISTRY_USER_HAM -p $CI_REGISTRY_PASSWORD_HAM
+    - docker build -t $CI_REGISTRY_HAM/khodro45/dealer-pwa:$CI_COMMIT_SHORT_SHA -f Dockerfile-fordTechnical .
+    - docker push $CI_REGISTRY_HAM/khodro45/dealer-pwa:$CI_COMMIT_SHORT_SHA
+  tags:
+    - dockerrunner4
+
+deploy_fordTechnical:
+  image: docker:stable
+  stage: deploy
+  only:
+    - /^fordTechnical-v[0-9]+\.[0-9]+$/
+  tags:
+    - dockerrunner4
+  script:
+    - docker login $CI_REGISTRY_HAM -u $CI_REGISTRY_USER_HAM -p $CI_REGISTRY_PASSWORD_HAM
+    - docker pull $CI_REGISTRY_HAM/khodro45/dealer-pwa:$CI_COMMIT_SHORT_SHA
+    - docker tag $CI_REGISTRY_HAM/khodro45/dealer-pwa:$CI_COMMIT_SHORT_SHA $CI_REGISTRY_HAM/khodro45/dealer-pwa:fordTechnical
+    - docker push $CI_REGISTRY_HAM/khodro45/dealer-pwa:fordTechnical
+
+##########################################################################################################
+build_teslaTechnical:
+  image: docker:stable
+  stage: build
+  only:
+    - /^teslaTechnical-v[0-9]+\.[0-9]+$/
+  script:
+    - docker login $CI_REGISTRY_HAM -u $CI_REGISTRY_USER_HAM -p $CI_REGISTRY_PASSWORD_HAM
+    - docker build -t $CI_REGISTRY_HAM/khodro45/dealer-pwa:$CI_COMMIT_SHORT_SHA -f Dockerfile-teslaTechnical .
+    - docker push $CI_REGISTRY_HAM/khodro45/dealer-pwa:$CI_COMMIT_SHORT_SHA
+  tags:
+    - dockerrunner4
+
+deploy_teslaTechnical:
+  image: docker:stable
+  stage: deploy
+  only:
+    - /^teslaTechnical-v[0-9]+\.[0-9]+$/
+  tags:
+    - dockerrunner4
+  script:
+    - docker login $CI_REGISTRY_HAM -u $CI_REGISTRY_USER_HAM -p $CI_REGISTRY_PASSWORD_HAM
+    - docker pull $CI_REGISTRY_HAM/khodro45/dealer-pwa:$CI_COMMIT_SHORT_SHA
+    - docker tag $CI_REGISTRY_HAM/khodro45/dealer-pwa:$CI_COMMIT_SHORT_SHA $CI_REGISTRY_HAM/khodro45/dealer-pwa:teslaTechnical
+    - docker push $CI_REGISTRY_HAM/khodro45/dealer-pwa:teslaTechnical

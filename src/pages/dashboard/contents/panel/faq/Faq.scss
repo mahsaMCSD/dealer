@@ -1,0 +1,42 @@
+.plus-to-minus-sign {
+  position: relative;
+  width: 27px;
+  height: 27px;
+  border-radius: 50%;
+  background-color: #9badc4;
+  transition: all 0.3s ease;
+
+  &.active {
+    background-color: #90a1b6;
+
+    .sign-2 {
+      transform: rotate(0);
+    }
+  }
+  .sign {
+    position: absolute;
+    width: 13px;
+    height: 3px;
+    border-radius: 3px;
+    background-color: white;
+    transition: all 0.3s ease;
+  }
+  .sign-2 {
+    transform: rotate(90deg);
+  }
+}
+
+.answer {
+  color: #8793a3;
+  transition: 300ms;
+  overflow: hidden;
+  padding: 0;
+  height: 0;
+  max-height: 0;
+
+  &.active {
+    padding: 8px 22px 17px;
+    height: auto;
+    max-height: unset;
+  }
+}
